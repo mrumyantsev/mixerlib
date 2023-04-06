@@ -2,7 +2,7 @@
 
 This is JavaScript app for generating spontaneous strings of letters, digits and symbols, which oftenly can be used for creating the most strongest password in any registration purposes.
 
-![screenshot_v0-1](https://user-images.githubusercontent.com/36193247/230244521-d87ddfe7-b513-48d7-ad1c-a6b0866f0c7b.png)
+![screenshot_v0-1](https://user-images.githubusercontent.com/36193247/230348204-dee0e33c-7b12-4136-87fe-4a02bf748abd.png)
 
 ### How to use it
 
