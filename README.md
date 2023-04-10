@@ -1,12 +1,10 @@
 # Password Generator
 
-### Overview
-
 This is JavaScript app for generating spontaneous strings of letters, digits and symbols, which oftenly can be used for creating the most strongest password in any registration purposes.
 
 ![v0_1](https://user-images.githubusercontent.com/36193247/230893422-2b8e9078-e0cd-4daf-8e98-6b25b16e1f70.png)
 
-### How to use it
+# How to use it
 
 - Just simply download this repo and open file `index.html` with any web-browser.
     - You can also upload this app on server hosting to allow access from the Internet to its index page.
