@@ -1,4 +1,4 @@
-# Password Generator
+# Password Generator v0.1
 
 This is JavaScript app for generating spontaneous strings of letters, digits and symbols, which oftenly can be used for creating the most strongest password in any registration purposes.
 
