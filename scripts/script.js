@@ -6,7 +6,7 @@ class PasswordGenerator {
     #passLength = 20;
     #isUniqueChars = false;
 
-    generate = (passLength, isUniqueChars) => {
+    generate(passLength, isUniqueChars) {
         if (passLength)
             this.#passLength = passLength;
         
@@ -19,7 +19,7 @@ class PasswordGenerator {
         return this.#getRandomPassword();
     }
 
-    #getRandomPassword = () => {
+    #getRandomPassword() {
         const charStore = this.#charStore;
 
         let password = [];
@@ -47,7 +47,7 @@ class PasswordGenerator {
         return password.join("");
     }
 
-    #getRandomKey = () => {
+    #getRandomKey() {
         const charStore = this.#charStore;
         const keys = Object.keys(charStore);
         const i = Math.floor(keys.length * Math.random());
@@ -55,7 +55,7 @@ class PasswordGenerator {
         return keys[i];
     }
 
-    #getRandomCharFromArray = arr => {
+    #getRandomCharFromArray(arr) {
         let i, ch;
 
         while (true) {
@@ -70,7 +70,7 @@ class PasswordGenerator {
         }
     }
 
-    #shuffleArrays = () => {
+    #shuffleArrays() {
         const charStore = this.#charStore;
         const keys = Object.keys(charStore);
 
@@ -80,7 +80,7 @@ class PasswordGenerator {
         keys.forEach(forEachHandler);
     }
 
-    #getShuffledArray = arr => {
+    #getShuffledArray(arr) {
         const res = [];
 
         let i, ch;
@@ -100,7 +100,7 @@ class PasswordGenerator {
         return res;
     }
 
-    #fillArrays = () => {
+    #fillArrays() {
         const charStore = {
             symbols: this.#getFilledArray("@#$%&"),
             digits: this.#getFilledArray("0-9"),
@@ -111,7 +111,7 @@ class PasswordGenerator {
         this.#charStore = charStore;
     }
 
-    #getFilledArray = content => {
+    #getFilledArray(content) {
         if (!content)
             return;
         
@@ -119,14 +119,14 @@ class PasswordGenerator {
             if (content[1] === "-") {
                 const startChar = content[0];
                 const endChar = content[2];
-                
+
                 return this.#getCharRangeArray(startChar, endChar);
             }
         
         return [...content];
     }
 
-    #getCharRangeArray = (startChar, endChar) => {
+    #getCharRangeArray(startChar, endChar) {
         const arr = [];
         let ch, code;
 
