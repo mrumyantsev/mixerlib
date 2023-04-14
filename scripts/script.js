@@ -1,5 +1,5 @@
-const passwordLength = 55,
-      isUniqueChars = true;
+const passwordLength = 55;
+const isUniqueChars = true;
 
 class PasswordGenerator {
     #charStore = {};
@@ -22,11 +22,11 @@ class PasswordGenerator {
     #getRandomPassword = () => {
         const charStore = this.#charStore;
 
-        let password = [],
-            previousKey = "",
-            currentKey,
-            ch,
-            endPasswordLength = this.#passLength;
+        let password = [];
+        let previousKey = "";
+        let currentKey;
+        let ch;
+        let endPasswordLength = this.#passLength;
         
         while (password.length < endPasswordLength) {
             currentKey = this.#getRandomKey();
@@ -48,9 +48,9 @@ class PasswordGenerator {
     }
 
     #getRandomKey = () => {
-        const charStore = this.#charStore,
-              keys = Object.keys(charStore),
-              i = Math.floor(keys.length * Math.random());
+        const charStore = this.#charStore;
+        const keys = Object.keys(charStore);
+        const i = Math.floor(keys.length * Math.random());
 
         return keys[i];
     }
@@ -71,8 +71,8 @@ class PasswordGenerator {
     }
 
     #shuffleArrays = () => {
-        const charStore = this.#charStore,
-              keys = Object.keys(charStore);
+        const charStore = this.#charStore;
+        const keys = Object.keys(charStore);
 
         const forEachHandler = key =>
             charStore[key] = this.#getShuffledArray(charStore[key]);
@@ -117,8 +117,9 @@ class PasswordGenerator {
         
         if (content.length === 3)
             if (content[1] === "-") {
-                const startChar = content[0],
-                      endChar = content[2];
+                const startChar = content[0];
+                const endChar = content[2];
+                
                 return this.#getCharRangeArray(startChar, endChar);
             }
         
@@ -142,8 +143,8 @@ class PasswordGenerator {
 }
 
 const main = () => {
-    const body = document.getElementById("password-container"),
-          bodyElement = $("#password-container");
+    const body = document.getElementById("password-container");
+    const bodyElement = $("#password-container");
 
     const passgen = new PasswordGenerator();
 
