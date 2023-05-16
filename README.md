@@ -1,4 +1,4 @@
-# Password Generator v0.1
+# Password Generator
 
 This application is made for generating a spontaneous strings of letters, digits and symbols which oftenly can be used for creating the most strongest password in case of service registration.
 
