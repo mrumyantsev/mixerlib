@@ -4,7 +4,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mrumyantsev/password-generator/internal/app/passgen"
+	"github.com/mrumyantsev/passgen/internal/app/passgen"
 )
 
 const (

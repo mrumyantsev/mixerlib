@@ -1,8 +1,8 @@
 package charstore
 
 import (
-	"github.com/mrumyantsev/password-generator/internal/pkg/node"
-	"github.com/mrumyantsev/password-generator/internal/pkg/randomizer"
+	"github.com/mrumyantsev/passgen/internal/pkg/node"
+	"github.com/mrumyantsev/passgen/internal/pkg/randomizer"
 )
 
 type CharStore struct {

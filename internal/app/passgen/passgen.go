@@ -1,8 +1,8 @@
 package passgen
 
 import (
-	charstore "github.com/mrumyantsev/password-generator/internal/pkg/char-store"
-	"github.com/mrumyantsev/password-generator/internal/pkg/randomizer"
+	charstore "github.com/mrumyantsev/passgen/internal/pkg/char-store"
+	"github.com/mrumyantsev/passgen/internal/pkg/randomizer"
 )
 
 type PassGen struct {

@@ -1,3 +1,3 @@
-module github.com/mrumyantsev/password-generator
+module github.com/mrumyantsev/passgen
 
 go 1.20

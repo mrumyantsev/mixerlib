@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/mrumyantsev/password-generator/internal/pkg/node"
+	"github.com/mrumyantsev/passgen/internal/pkg/node"
 )
 
 type Randomizer struct {
