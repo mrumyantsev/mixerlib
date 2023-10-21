@@ -1,20 +1,39 @@
 package charstore
 
 import (
+	"github.com/mrumyantsev/passgen/internal/consts"
 	"github.com/mrumyantsev/passgen/internal/pkg/node"
 )
 
-const (
-	DEFAULT_CHAR_GROUPS_CAPACITY int = 4
-)
-
 func (c *CharStore) Init() {
-	c.charGroups = node.Make(DEFAULT_CHAR_GROUPS_CAPACITY)
+	c.charGroups = node.Make(consts.DEFAULT_CHAR_GROUPS_CAPACITY)
 
-	c.charGroups.Push(makeCharsWithPattern("0-9"))
-	c.charGroups.Push(makeCharsWithPattern("@#$%&"))
-	c.charGroups.Push(makeCharsWithPattern("a-z"))
-	c.charGroups.Push(makeCharsWithPattern("A-Z"))
+	charGroupsData := []struct {
+		pattern     string
+		charGroupId byte
+	}{
+		{"0-9", consts.NUMBERS},
+		{"@#$%&", consts.SPEC_CHARS},
+		{"a-z", consts.LOW_LETTERS},
+		{"A-Z", consts.HIGH_LETTERS},
+	}
+
+	var node *node.Node
+
+	for _, chars := range charGroupsData {
+		node = makeCharsWithPattern(chars.pattern)
+		node.SetValue(chars.charGroupId)
+		c.charGroups.Push(node)
+	}
+
+	c.availableGroups = []int{
+		consts.NUMBERS,
+		consts.SPEC_CHARS,
+		consts.LOW_LETTERS,
+		consts.HIGH_LETTERS,
+	}
+
+	c.availableGroupsCount = consts.DEFAULT_CHAR_GROUPS_CAPACITY
 }
 
 func makeCharsWithPattern(pattern string) *node.Node {
@@ -29,28 +48,28 @@ func makeCharsWithPattern(pattern string) *node.Node {
 
 func makeCharsWithRange(startChar, endChar byte) *node.Node {
 	var (
-		charGroup = node.Make(int(endChar-startChar) + 1)
+		chars = node.Make(int(endChar-startChar) + 1)
 	)
 
 	for ch := startChar; ch <= endChar; ch++ {
 		charItem := node.New()
 		charItem.SetValue(ch)
-		charGroup.Push(charItem)
+		chars.Push(charItem)
 	}
 
-	return charGroup
+	return chars
 }
 
 func makeCharsWithSpecifiedChars(specifiedChars string) *node.Node {
 	var (
-		charGroup = node.Make(len(specifiedChars))
+		chars = node.Make(len(specifiedChars))
 	)
 
 	for _, ch := range specifiedChars {
 		charItem := node.New()
 		charItem.SetValue(byte(ch))
-		charGroup.Push(charItem)
+		chars.Push(charItem)
 	}
 
-	return charGroup
+	return chars
 }

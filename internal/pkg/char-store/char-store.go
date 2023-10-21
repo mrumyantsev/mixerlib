@@ -6,10 +6,12 @@ import (
 )
 
 type CharStore struct {
-	charGroups             *node.Node
-	randomizer             *randomizer.Randomizer
-	currentCharGroupIndex  int
-	previousCharGroupIndex int
+	charGroups           *node.Node
+	randomizer           *randomizer.Randomizer
+	availableGroups      []int
+	availableGroupsCount int
+	currentCharsIndex    int
+	previousCharsIndex   int
 }
 
 func New(randomizer *randomizer.Randomizer) *CharStore {
@@ -23,85 +25,80 @@ func New(randomizer *randomizer.Randomizer) *CharStore {
 func (c *CharStore) Shuffle() {
 	var (
 		charGroupsLength = c.charGroups.GetLength()
-		charGroup        *node.Node
+		chars            *node.Node
 	)
 
 	for i := 0; i < charGroupsLength; i++ {
-		charGroup = c.charGroups.GetNode(i)
-		c.randomizer.ShuffleNodes(charGroup)
-		c.charGroups.SetNode(i, charGroup)
+		chars = c.charGroups.GetNode(i)
+		c.randomizer.ShuffleNodes(chars)
+		c.charGroups.SetNode(i, chars)
 	}
 
 	c.randomizer.ShuffleNodes(c.charGroups)
 }
 
 func (c *CharStore) GetCharacter() byte {
-	var charGroup *node.Node
+	var chars *node.Node
 
 	for {
-		if c.charGroups.GetLength() == 0 {
+		if c.availableGroupsCount == 0 {
 			return '0'
+		} else if c.availableGroupsCount == 1 {
+			c.currentCharsIndex = 0
+		} else {
+			c.randomizeCharsIndex()
 		}
 
-		charGroup = c.GetCharGroup()
+		chars = c.charGroups.GetNode(c.availableGroups[c.currentCharsIndex])
 
-		if charGroup.GetLength() == 0 {
-			c.remakeCharGroups()
+		if chars.GetLength() == 0 {
+			c.remakeAvailableGroups()
+
 			continue
 		}
 
 		break
 	}
 
-	value := charGroup.Pop().GetValue()
+	value := chars.Pop().GetValue()
 
 	return value
 }
 
-func (c *CharStore) remakeCharGroups() {
-	var (
-		newCapacity = c.charGroups.GetLength() - 1
-	)
+func (c *CharStore) randomizeCharsIndex() {
+	for {
+		c.currentCharsIndex = c.randomizer.GetRandomIndex(c.availableGroupsCount)
 
-	if newCapacity == 0 {
-		c.charGroups = node.New()
+		if c.currentCharsIndex != c.previousCharsIndex {
+			break
+		}
+	}
+
+	c.previousCharsIndex = c.currentCharsIndex
+}
+
+func (c *CharStore) remakeAvailableGroups() {
+	c.availableGroupsCount--
+
+	if c.availableGroupsCount == 0 {
 		return
 	}
 
 	var (
-		charGroups = node.Make(newCapacity)
-		charGroup  *node.Node
+		newAvailableGroups = make([]int, c.availableGroupsCount)
+		j                  = 0
 	)
 
-	for i := 0; i <= newCapacity; i++ {
-		if i == c.currentCharGroupIndex {
+	for index, id := range c.availableGroups {
+		if index == c.currentCharsIndex {
 			continue
 		}
 
-		charGroup = c.charGroups.GetNode(i)
-
-		charGroups.Push(charGroup)
+		newAvailableGroups[j] = id
+		j++
 	}
 
-	c.charGroups = charGroups
+	c.availableGroups = newAvailableGroups
 
-	c.previousCharGroupIndex = c.randomizer.GetRandomIndex(newCapacity)
-}
-
-func (c *CharStore) GetCharGroup() *node.Node {
-	for {
-		c.currentCharGroupIndex = c.randomizer.GetRandomIndex(c.charGroups.GetLength())
-
-		if c.charGroups.GetLength() == 1 {
-			break
-		}
-
-		if c.currentCharGroupIndex != c.previousCharGroupIndex {
-			break
-		}
-	}
-
-	c.previousCharGroupIndex = c.currentCharGroupIndex
-
-	return c.charGroups.GetNode(c.currentCharGroupIndex)
+	c.previousCharsIndex = c.randomizer.GetRandomIndex(c.availableGroupsCount)
 }
