@@ -1,17 +1,18 @@
 package charstore
 
 import (
+	"github.com/mrumyantsev/passgen/internal/pkg/consts"
 	"github.com/mrumyantsev/passgen/internal/pkg/node"
 	"github.com/mrumyantsev/passgen/internal/pkg/randomizer"
 )
 
 type CharStore struct {
-	charGroups           *node.Node
-	randomizer           *randomizer.Randomizer
-	availableGroups      []int
-	availableGroupsCount int
-	currentCharsIndex    int
-	previousCharsIndex   int
+	randomizer     *randomizer.Randomizer
+	collection     *node.Node
+	availableItems []int
+	count          int
+	index          int
+	previousIndex  int
 }
 
 func New(randomizer *randomizer.Randomizer) *CharStore {
@@ -22,37 +23,22 @@ func New(randomizer *randomizer.Randomizer) *CharStore {
 	return store
 }
 
-func (c *CharStore) Shuffle() {
-	var (
-		charGroupsLength = c.charGroups.GetLength()
-		chars            *node.Node
-	)
-
-	for i := 0; i < charGroupsLength; i++ {
-		chars = c.charGroups.GetNode(i)
-		c.randomizer.ShuffleNodes(chars)
-		c.charGroups.SetNode(i, chars)
-	}
-
-	c.randomizer.ShuffleNodes(c.charGroups)
-}
-
 func (c *CharStore) GetCharacter() byte {
-	var chars *node.Node
+	var charSet *node.Node
 
 	for {
-		if c.availableGroupsCount == 0 {
-			return '0'
-		} else if c.availableGroupsCount == 1 {
-			c.currentCharsIndex = 0
+		if c.count == 0 {
+			return consts.STUB_FOR_NO_CHARS
+		} else if c.count == 1 {
+			c.index = 0
 		} else {
 			c.randomizeCharsIndex()
 		}
 
-		chars = c.charGroups.GetNode(c.availableGroups[c.currentCharsIndex])
+		charSet = c.collection.GetNode(c.availableItems[c.index])
 
-		if chars.GetLength() == 0 {
-			c.remakeAvailableGroups()
+		if charSet.GetCount() == 0 {
+			c.remakeAvailable()
 
 			continue
 		}
@@ -60,45 +46,45 @@ func (c *CharStore) GetCharacter() byte {
 		break
 	}
 
-	value := chars.Pop().GetValue()
+	value := charSet.Pop().GetValue()
 
 	return value
 }
 
 func (c *CharStore) randomizeCharsIndex() {
 	for {
-		c.currentCharsIndex = c.randomizer.GetRandomIndex(c.availableGroupsCount)
+		c.index = c.randomizer.GetRandomIndex(c.count)
 
-		if c.currentCharsIndex != c.previousCharsIndex {
+		if c.index != c.previousIndex {
 			break
 		}
 	}
 
-	c.previousCharsIndex = c.currentCharsIndex
+	c.previousIndex = c.index
 }
 
-func (c *CharStore) remakeAvailableGroups() {
-	c.availableGroupsCount--
+func (c *CharStore) remakeAvailable() {
+	c.count--
 
-	if c.availableGroupsCount == 0 {
+	if c.count == 0 {
 		return
 	}
 
 	var (
-		newAvailableGroups = make([]int, c.availableGroupsCount)
-		j                  = 0
+		newAvailableItems = make([]int, c.count)
+		i                 = 0
 	)
 
-	for index, id := range c.availableGroups {
-		if index == c.currentCharsIndex {
+	for index, id := range c.availableItems {
+		if index == c.index {
 			continue
 		}
 
-		newAvailableGroups[j] = id
-		j++
+		newAvailableItems[i] = id
+		i++
 	}
 
-	c.availableGroups = newAvailableGroups
+	c.availableItems = newAvailableItems
 
-	c.previousCharsIndex = c.randomizer.GetRandomIndex(c.availableGroupsCount)
+	c.previousIndex = c.randomizer.GetRandomIndex(c.count)
 }
