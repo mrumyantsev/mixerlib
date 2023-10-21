@@ -7,12 +7,12 @@ import (
 )
 
 type CharStore struct {
-	randomizer     *randomizer.Randomizer
-	collection     *node.Node
-	availableItems []int
-	count          int
-	index          int
-	previousIndex  int
+	collection        *node.Node
+	count             int
+	availableCharSets []int
+	index             int
+	previousIndex     int
+	randomizer        *randomizer.Randomizer
 }
 
 func New(randomizer *randomizer.Randomizer) *CharStore {
@@ -23,15 +23,7 @@ func New(randomizer *randomizer.Randomizer) *CharStore {
 	return store
 }
 
-// Resets count status of collection and its char sets.
-func (c *CharStore) Reset() {
-	c.initAvailableItems()
-
-	for _, item := range c.collection.GetNodes() {
-		item.ResetCount()
-	}
-}
-
+// Gets new character from the collection.
 func (c *CharStore) GetCharacter() byte {
 	var charSet *node.Node
 
@@ -44,7 +36,7 @@ func (c *CharStore) GetCharacter() byte {
 			c.randomizeCharsIndex()
 		}
 
-		charSet = c.collection.GetNode(c.availableItems[c.index])
+		charSet = c.collection.GetNode(c.availableCharSets[c.index])
 
 		if charSet.GetCount() == 0 {
 			c.remakeAvailable()
@@ -80,20 +72,20 @@ func (c *CharStore) remakeAvailable() {
 	}
 
 	var (
-		newAvailableItems = make([]int, c.count)
-		i                 = 0
+		newavailableCharSets = make([]int, c.count)
+		i                    = 0
 	)
 
-	for index, id := range c.availableItems {
+	for index, id := range c.availableCharSets {
 		if index == c.index {
 			continue
 		}
 
-		newAvailableItems[i] = id
+		newavailableCharSets[i] = id
 		i++
 	}
 
-	c.availableItems = newAvailableItems
+	c.availableCharSets = newavailableCharSets
 
 	c.previousIndex = c.randomizer.GetRandomIndex(c.count)
 }

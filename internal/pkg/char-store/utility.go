@@ -28,11 +28,20 @@ func (c *CharStore) Init() {
 		c.collection.Push(node)
 	}
 
-	c.initAvailableItems()
+	c.initAvailableCharSets()
 }
 
-func (c *CharStore) initAvailableItems() {
-	c.availableItems = []int{
+// Resets count status of collection and its char sets.
+func (c *CharStore) Reset() {
+	c.initAvailableCharSets()
+
+	for _, item := range c.collection.GetNodes() {
+		item.ResetCount()
+	}
+}
+
+func (c *CharStore) initAvailableCharSets() {
+	c.availableCharSets = []int{
 		consts.ID_NUMBERS,
 		consts.ID_SPEC_CHARS,
 		consts.ID_LOW_LETTERS,
@@ -78,4 +87,20 @@ func makeCharsWithSpecifiedChars(specifiedChars string) *node.Node {
 	}
 
 	return setting
+}
+
+// Shuffles chars in the char sets and char sets in the collection.
+func (c *CharStore) Shuffle() {
+	var (
+		collectionCount = c.collection.GetCount()
+		charSet         *node.Node
+	)
+
+	for i := 0; i < collectionCount; i++ {
+		charSet = c.collection.GetNode(i)
+		c.randomizer.ShuffleNodes(charSet)
+		c.collection.SetNode(i, charSet)
+	}
+
+	c.randomizer.ShuffleNodes(c.collection)
 }
