@@ -29,6 +29,7 @@ func (p *PassGen) Generate(passwordLength int) []byte {
 		character byte
 	)
 
+	p.charStore.Reset()
 	p.charStore.Shuffle()
 
 	for i := 0; i < passwordLength; i++ {

@@ -58,6 +58,10 @@ func (n *Node) SetNode(index int, node *Node) {
 	n.nodes.arr[index] = node
 }
 
+func (n *Node) ResetCount() {
+	n.nodes.count = cap(n.nodes.arr)
+}
+
 func (n *Node) Push(node *Node) {
 	n.nodes.arr[n.nodes.count] = node
 

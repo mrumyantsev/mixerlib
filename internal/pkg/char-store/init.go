@@ -28,6 +28,10 @@ func (c *CharStore) Init() {
 		c.collection.Push(node)
 	}
 
+	c.initAvailableItems()
+}
+
+func (c *CharStore) initAvailableItems() {
 	c.availableItems = []int{
 		consts.ID_NUMBERS,
 		consts.ID_SPEC_CHARS,

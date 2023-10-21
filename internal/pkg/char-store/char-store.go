@@ -23,6 +23,15 @@ func New(randomizer *randomizer.Randomizer) *CharStore {
 	return store
 }
 
+// Resets count status of collection and its char sets.
+func (c *CharStore) Reset() {
+	c.initAvailableItems()
+
+	for _, item := range c.collection.GetNodes() {
+		item.ResetCount()
+	}
+}
+
 func (c *CharStore) GetCharacter() byte {
 	var charSet *node.Node
 
