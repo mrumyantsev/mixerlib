@@ -34,7 +34,7 @@ func (p *PassGen) Generate(passwordLength int) []byte {
 
 	for i := 0; i < passwordLength; i++ {
 		character = p.charStore.GetCharacter()
-		password = append(password, character)
+		password[i] = character
 	}
 
 	return password
