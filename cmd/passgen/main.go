@@ -10,7 +10,7 @@ import (
 const (
 	DEFAULT_PASSWORD_LENGTH = 32
 	END_OF_LINE             = "\n"
-	VERSION                 = "0.9.2"
+	VERSION                 = "0.9.3"
 )
 
 var (
