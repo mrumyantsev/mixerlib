@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"strconv"
 
@@ -10,6 +9,7 @@ import (
 
 const (
 	DEFAULT_PASSWORD_LENGTH = 32
+	END_OF_LINE             = "\n"
 	VERSION                 = "0.9.2"
 )
 
@@ -40,9 +40,11 @@ func init() {
 
 func main() {
 	if isUserWantVersion {
-		fmt.Println("Version:", VERSION)
+		os.Stdout.WriteString("Version: " + VERSION + END_OF_LINE)
 	} else {
 		password := passGen.Generate(passwordLength)
-		fmt.Println(string(password))
+
+		os.Stdout.Write(password)
+		os.Stdout.WriteString(END_OF_LINE)
 	}
 }
