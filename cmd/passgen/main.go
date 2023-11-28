@@ -8,14 +8,14 @@ import (
 )
 
 const (
-	DEFAULT_PASSWORD_LENGTH = 32
-	END_OF_LINE             = "\n"
-	VERSION                 = "0.9.3"
+	_DEFAULT_PASSWORD_LENGTH = 32
+	_END_OF_LINE             = "\n"
+	_VERSION                 = "0.9.3"
 )
 
 var (
 	passGen           = passgen.New()
-	passwordLength    = DEFAULT_PASSWORD_LENGTH
+	passwordLength    = _DEFAULT_PASSWORD_LENGTH
 	isUserWantVersion = false
 )
 
@@ -40,11 +40,11 @@ func init() {
 
 func main() {
 	if isUserWantVersion {
-		os.Stdout.WriteString("Version: " + VERSION + END_OF_LINE)
+		os.Stdout.WriteString("Version: " + _VERSION + _END_OF_LINE)
 	} else {
 		password := passGen.Generate(passwordLength)
 
 		os.Stdout.Write(password)
-		os.Stdout.WriteString(END_OF_LINE)
+		os.Stdout.WriteString(_END_OF_LINE)
 	}
 }
