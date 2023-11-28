@@ -4,13 +4,13 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mrumyantsev/passgen/internal/app/passgen"
+	"github.com/mrumyantsev/passgen"
 )
 
 const (
 	_DEFAULT_PASSWORD_LENGTH = 32
 	_END_OF_LINE             = "\n"
-	_VERSION                 = "0.9.3"
+	_VERSION                 = "0.10.0"
 )
 
 var (
