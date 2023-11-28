@@ -6,15 +6,15 @@ Also **passgen** is a Go library.
 
 # Usage
 
-1. Build this app:
+Build it:
 
-    ```
-    make build
-    ```
+```
+make build
+```
 
-2. Run in console:
+Run it:
 
-    ```
-    cd build
-    passgen [password_length_number]
-    ```
+```
+cd build
+passgen [password_length_number]
+```
