@@ -13,25 +13,25 @@ const (
 )
 
 var (
-	passGen        = passgen.New()
 	passwordLength = _DEFAULT_PASSWORD_LENGTH
 )
 
 func init() {
-	if len(os.Args) == 1 {
-		return
-	}
+	if len(os.Args) > 1 {
+		param, err := strconv.Atoi(os.Args[1])
+		if err != nil {
+			return
+		}
 
-	secondArg := os.Args[1]
-
-	passLength, _ := strconv.Atoi(secondArg)
-
-	if passLength > 0 {
-		passwordLength = passLength
+		if param > 0 {
+			passwordLength = param
+		}
 	}
 }
 
 func main() {
+	passGen := passgen.New()
+
 	password := passGen.Generate(passwordLength)
 
 	os.Stdout.Write(password)
