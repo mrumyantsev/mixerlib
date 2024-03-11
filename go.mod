@@ -1,3 +1,3 @@
-module github.com/mrumyantsev/passgen
+module github.com/mrumyantsev/unguess
 
 go 1.20
