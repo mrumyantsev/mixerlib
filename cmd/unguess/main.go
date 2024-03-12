@@ -22,6 +22,10 @@ func init() {
 func main() {
 	pass := gen.Generate(nil, passLen)
 
+	if len(pass) == 0 {
+		return
+	}
+
 	fmt.Println(string(pass))
 }
 
