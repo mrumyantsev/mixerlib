@@ -15,6 +15,37 @@ var (
 	shuffles = ShufflesDefault
 )
 
+// Generate generates shuffled sequence of characters from the source.
+//
+// The shuffle algorithm is based on Go programming language
+// concurrency uncertainties like calling the goroutines in
+// inconsistent order.
+//
+// If nil is passed as a src, then the source will be set by default
+// using the SourceDefault function return value. If 0 or lower, or
+// higher than source length number is passed as len, the length of
+// output slice will be the same as the source length.
+//
+// Returns a slice of runes (the same runes that passed in src, but
+// very well shuffled, and cut by len).
+func Generate(src []rune, len int) []rune {
+	if src == nil {
+		src = SourceDefault()
+	}
+
+	store := store.New(src)
+
+	shuf := shuffler.New(store)
+
+	sel := selector.New(shuf)
+
+	shuf.ShuffleMany(shuffles)
+
+	sel.Select(len)
+
+	return sel.Data()
+}
+
 // SourceDefault gets the default characters set used by characters
 // generator if nil is passed as source parameter of Generate function.
 //
@@ -49,35 +80,4 @@ func Shuffles() int {
 // be shuffled inside Generate function.
 func SetShuffles(num int) {
 	shuffles = num
-}
-
-// Generate generates shuffled sequence of characters from the source.
-//
-// The shuffle algorithm is based on Go programming language
-// concurrency uncertainties like calling the goroutines in
-// inconsistent order.
-//
-// If nil is passed as a src, then the source will be set by default
-// using the SourceDefault function return value. If 0 or lower, or
-// higher than source length number is passed as len, the length of
-// output slice will be the same as the source length.
-//
-// Returns a slice of runes (the same runes that passed in src, but
-// very well shuffled, and cut by len).
-func Generate(src []rune, len int) []rune {
-	if src == nil {
-		src = SourceDefault()
-	}
-
-	store := store.New(src)
-
-	shuf := shuffler.New(store)
-
-	sel := selector.New(shuf)
-
-	shuf.ShuffleMany(shuffles)
-
-	sel.Select(len)
-
-	return sel.Data()
 }
