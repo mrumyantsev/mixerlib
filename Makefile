@@ -3,7 +3,7 @@
 
 .PHONY: build
 build:
-	go build -o ./build/unguess ./cmd/unguess/main.go
+	go build -o ./build/unguess ./cmd/unguess
 
 .PHONY: run
 run:
