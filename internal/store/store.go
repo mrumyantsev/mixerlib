@@ -3,22 +3,22 @@ package store
 import "sync"
 
 type Store struct {
-	source   []rune
-	data     []rune
+	source   []byte
+	data     []byte
 	capacity int
 	index    int
 	mu       *sync.Mutex
 }
 
-func New(source []rune) *Store {
+func New(src []byte) *Store {
 	return &Store{
-		source:   source,
-		capacity: len(source),
+		source:   src,
+		capacity: len(src),
 		mu:       &sync.Mutex{},
 	}
 }
 
-func (s *Store) Data() []rune {
+func (s *Store) Data() []byte {
 	return s.data
 }
 
@@ -31,7 +31,7 @@ func (s *Store) DecCap() {
 }
 
 func (s *Store) ResetData() {
-	s.data = make([]rune, s.capacity)
+	s.data = make([]byte, s.capacity)
 	s.index = 0
 }
 

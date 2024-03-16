@@ -23,12 +23,12 @@ var (
 //
 // If nil is passed as a src, then the source will be set by default
 // using the SourceDefault function return value. If 0 or lower, or
-// higher than source length number is passed as len, the length of
-// output slice will be the same as the source length.
+// higher than source length number is passed, the length of output
+// slice will be the same as the source length.
 //
-// Returns a slice of runes (the same runes that passed in src, but
-// very well shuffled, and cut by len).
-func Generate(src []rune, len int) []rune {
+// Returns a slice of bytes (the same bytes that passed in src, but
+// very well shuffled, and cut by length).
+func Generate(src []byte, length int) []byte {
 	if src == nil {
 		src = SourceDefault()
 	}
@@ -41,21 +41,21 @@ func Generate(src []rune, len int) []rune {
 
 	shuf.ShuffleMany(shuffles)
 
-	sel.Select(len)
+	sel.Select(length)
 
 	return sel.Data()
 }
 
-// SourceDefault gets the default characters set used by characters
-// generator if nil is passed as source parameter of Generate function.
+// SourceDefault gets slice of bytes that used by generator as default
+// characters set.
 //
-// Returning slice consists of 67 runes:
+// The returning result includes 67 elements:
 //   - 5 special characters (@, #, $, %, &)
 //   - 10 Western Arabic numerals (0-9)
 //   - 26 uppercase latin alphabet letters (A-Z)
 //   - 26 lowercase latin alphabet letters (a-z)
-func SourceDefault() []rune {
-	return []rune{
+func SourceDefault() []byte {
+	return []byte{
 		'@', '#', '$', '%', '&',
 
 		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',

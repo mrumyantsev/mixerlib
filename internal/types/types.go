@@ -8,7 +8,7 @@ type Shuffler interface {
 }
 
 type Storer interface {
-	Data() []rune
+	Data() []byte
 	Cap() int
 	DecCap()
 	ResetData()
