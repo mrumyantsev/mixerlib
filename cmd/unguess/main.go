@@ -12,14 +12,9 @@ var (
 	passLen = 32
 )
 
-func init() {
-	n, ok := parsePassLen()
-	if ok {
-		passLen = n
-	}
-}
-
 func main() {
+	parsePassLen()
+
 	pass := gen.Generate(nil, passLen)
 
 	if len(pass) == 0 {
@@ -29,22 +24,19 @@ func main() {
 	fmt.Println(string(pass))
 }
 
-// parsePassLen parses the second CLI argument as password length and
-// returns its value and parse status. If the argument is not specified
-// or is not a number then returning status will be false.
-func parsePassLen() (length int, ok bool) {
-	if len(os.Args) == 1 {
+// parsePassLen parses the second CLI argument as password length.
+//
+// If the password length argument is not specified or could not parse
+// as a number then password length stays declared defaultly.
+func parsePassLen() {
+	if len(os.Args) < 2 {
 		return
 	}
 
-	var err error
-
-	length, err = strconv.Atoi(os.Args[1])
+	n, err := strconv.Atoi(os.Args[1])
 	if err != nil {
 		return
 	}
 
-	ok = true
-
-	return
+	passLen = n
 }
