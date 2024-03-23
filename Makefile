@@ -11,4 +11,4 @@ run:
 
 .PHONY: fast-run
 fast-run:
-	go run ./cmd/unguess/main.go
+	go run ./cmd/unguess
