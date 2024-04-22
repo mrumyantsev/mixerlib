@@ -1,12 +1,12 @@
 package selector
 
-import "github.com/mrumyantsev/mixer/internal/types"
+import "github.com/mrumyantsev/mixer/internal/core"
 
 type Selector struct {
-	types.Shuffler
+	core.Shuffler
 }
 
-func New(s types.Shuffler) *Selector {
+func New(s core.Shuffler) *Selector {
 	return &Selector{s}
 }
 

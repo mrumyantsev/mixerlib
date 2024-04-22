@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mrumyantsev/mixer/pkg/gen"
+	"github.com/mrumyantsev/mixer/pkg/mixer"
 )
 
 var (
@@ -15,7 +15,7 @@ var (
 func main() {
 	parsePassLen()
 
-	pass := gen.Generate(nil, passLen)
+	pass := mixer.Mix(nil, passLen)
 
 	if len(pass) == 0 {
 		return

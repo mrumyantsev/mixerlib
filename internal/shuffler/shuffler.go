@@ -3,15 +3,15 @@ package shuffler
 import (
 	"sync"
 
-	"github.com/mrumyantsev/mixer/internal/types"
+	"github.com/mrumyantsev/mixer/internal/core"
 )
 
 type Shuffler struct {
-	types.Storer
+	core.Storer
 	*sync.WaitGroup
 }
 
-func New(s types.Storer) *Shuffler {
+func New(s core.Storer) *Shuffler {
 	return &Shuffler{s, &sync.WaitGroup{}}
 }
 

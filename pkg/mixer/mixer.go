@@ -1,4 +1,4 @@
-package gen
+package mixer
 
 import (
 	"github.com/mrumyantsev/mixer/internal/selector"
@@ -15,7 +15,7 @@ var (
 	shuffles = ShufflesDefault
 )
 
-// Generate generates shuffled sequence of characters from the source.
+// Mix makes shuffled sequence of characters from the source.
 //
 // The shuffle algorithm is based on Go programming language
 // concurrency uncertainties like calling the goroutines in
@@ -28,7 +28,7 @@ var (
 //
 // Returns a slice of bytes (the same bytes that passed in src, but
 // very well shuffled, and cut by length).
-func Generate(src []byte, length int) []byte {
+func Mix(src []byte, length int) []byte {
 	if src == nil {
 		src = SourceDefault()
 	}
