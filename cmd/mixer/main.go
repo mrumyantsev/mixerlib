@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mrumyantsev/unguess/pkg/gen"
+	"github.com/mrumyantsev/mixer/pkg/gen"
 )
 
 var (

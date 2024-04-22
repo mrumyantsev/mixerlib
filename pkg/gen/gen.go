@@ -1,9 +1,9 @@
 package gen
 
 import (
-	"github.com/mrumyantsev/unguess/internal/selector"
-	"github.com/mrumyantsev/unguess/internal/shuffler"
-	"github.com/mrumyantsev/unguess/internal/store"
+	"github.com/mrumyantsev/mixer/internal/selector"
+	"github.com/mrumyantsev/mixer/internal/shuffler"
+	"github.com/mrumyantsev/mixer/internal/store"
 )
 
 const (

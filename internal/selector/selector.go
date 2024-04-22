@@ -1,6 +1,6 @@
 package selector
 
-import "github.com/mrumyantsev/unguess/internal/types"
+import "github.com/mrumyantsev/mixer/internal/types"
 
 type Selector struct {
 	types.Shuffler

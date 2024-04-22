@@ -3,7 +3,7 @@ package shuffler
 import (
 	"sync"
 
-	"github.com/mrumyantsev/unguess/internal/types"
+	"github.com/mrumyantsev/mixer/internal/types"
 )
 
 type Shuffler struct {
