@@ -3,12 +3,12 @@
 
 .PHONY: build
 build:
-	go build -o ./build/unguess ./cmd/unguess
+	go build -o ./build/mixer ./cmd/mixer
 
 .PHONY: run
 run:
-	./build/unguess
+	./build/mixer
 
 .PHONY: fast-run
 fast-run:
-	go run ./cmd/unguess
+	go run ./cmd/mixer
